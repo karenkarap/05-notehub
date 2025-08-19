@@ -15,11 +15,17 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [noteQuery, setNoteQuery] = useState('');
 
-  const { data, isLoading, isSuccess } = useQuery<noteHttpResponse>({
+  const { data, isLoading, isSuccess, isError } = useQuery<noteHttpResponse>({
     queryKey: ['Query', currentPage, noteQuery],
     queryFn: () => fetchNotes(currentPage, noteQuery),
     placeholderData: keepPreviousData,
   });
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('Ooops... Something went wrong');
+    }
+  }, [isError]);
 
   useEffect(() => {
     if (isSuccess && data.notes.length === 0) {
