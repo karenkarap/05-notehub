@@ -10,13 +10,16 @@ export interface noteHttpResponse {
 }
 
 export const fetchNotes = async (page: number, query?: string): Promise<noteHttpResponse> => {
-  const response = await axios.get<noteHttpResponse>('https://notehub-public.goit.study/ap/notes', {
-    params: {
-      search: query,
-      page: page,
-      perPage: 12,
-    },
-  });
+  const response = await axios.get<noteHttpResponse>(
+    'https://notehub-public.goit.study/api/notes',
+    {
+      params: {
+        search: query,
+        page: page,
+        perPage: 12,
+      },
+    }
+  );
   return response.data;
 };
 
