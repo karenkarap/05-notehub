@@ -3,7 +3,7 @@ import css from './SearchBox.module.css';
 import React from 'react';
 
 interface SearchBoxProps {
-  setNoteQuery: React.Dispatch<React.SetStateAction<string>>;
+  setNoteQuery: (query: string) => void;
 }
 
 function SearchBox({ setNoteQuery }: SearchBoxProps) {

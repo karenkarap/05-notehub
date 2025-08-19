@@ -40,7 +40,8 @@ function NoteForm({ closeModal }: NoteFormProps) {
   const { mutate } = useMutation({
     mutationFn: (value: CreatedNote) => createNote(value),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['Query'] });
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
+      closeModal();
     },
     onError: () => toast.error('Something went wrong'),
   });
@@ -48,7 +49,6 @@ function NoteForm({ closeModal }: NoteFormProps) {
   const handleSubmit = (values: NoteFormValues, actions: FormikHelpers<NoteFormValues>) => {
     mutate(values);
     actions.resetForm();
-    closeModal();
   };
 
   return (

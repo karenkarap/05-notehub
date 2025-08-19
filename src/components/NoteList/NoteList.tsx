@@ -13,7 +13,7 @@ function NoteList({ data }: NoteListProps) {
   const { mutate } = useMutation({
     mutationFn: (id: string) => deleteNote(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['Query'] });
+      queryClient.invalidateQueries({ queryKey: ['notes'] });
     },
   });
 

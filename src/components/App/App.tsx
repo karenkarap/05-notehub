@@ -16,7 +16,7 @@ function App() {
   const [noteQuery, setNoteQuery] = useState('');
 
   const { data, isLoading, isSuccess, isError } = useQuery<noteHttpResponse>({
-    queryKey: ['Query', currentPage, noteQuery],
+    queryKey: ['notes', currentPage, noteQuery],
     queryFn: () => fetchNotes(currentPage, noteQuery),
     placeholderData: keepPreviousData,
   });
@@ -41,12 +41,17 @@ function App() {
     setIsModalOpen(false);
   };
 
+  const handleSearchQueryChange = (query: string) => {
+    setNoteQuery(query);
+    setCurrentPage(1);
+  };
+
   const totalPages = data?.totalPages ?? 0;
 
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        <SearchBox setNoteQuery={setNoteQuery} />
+        <SearchBox setNoteQuery={handleSearchQueryChange} />
 
         {data && data.totalPages > 1 && (
           <Pagination
