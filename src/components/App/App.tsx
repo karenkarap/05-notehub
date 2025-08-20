@@ -9,6 +9,7 @@ import NoteForm from '../NoteForm/NoteForm';
 import SearchBox from '../SearchBox/SearchBox';
 import { BeatLoader } from 'react-spinners';
 import toast, { Toaster } from 'react-hot-toast';
+import { useDebouncedCallback } from 'use-debounce';
 
 function App() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,10 +42,10 @@ function App() {
     setIsModalOpen(false);
   };
 
-  const handleSearchQueryChange = (query: string) => {
+  const handleSearchQueryChange = useDebouncedCallback((query: string) => {
     setNoteQuery(query);
     setCurrentPage(1);
-  };
+  }, 300);
 
   const totalPages = data?.totalPages ?? 0;
 
